@@ -1,0 +1,86 @@
+[
+  {
+    "line": 3,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 626500,
+              "status": "passed"
+            },
+            "match": {
+              "location": "APISetUpBase.setUp()"
+            }
+          },
+          {
+            "result": {
+              "duration": 16380300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "SetUpBase.setUpBase()"
+            }
+          }
+        ],
+        "line": 26,
+        "name": "Get all the tags and validate",
+        "description": "",
+        "id": "validation-authentication-of-user;get-all-the-tags-and-validate",
+        "after": [
+          {
+            "result": {
+              "duration": 269400,
+              "status": "passed"
+            },
+            "match": {
+              "location": "SetUpBase.endOfTest(Scenario)"
+            }
+          },
+          {
+            "result": {
+              "duration": 45800,
+              "status": "passed"
+            },
+            "match": {
+              "location": "APISetUpBase.tearDown(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 25356656900,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "I make a get call on all the tags and validate tags",
+            "match": {
+              "location": "APISteps.getAllTags()"
+            },
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "line": 25,
+            "name": "@getAllTheTags"
+          }
+        ]
+      }
+    ],
+    "name": "Validation Authentication of User",
+    "description": "",
+    "id": "validation-authentication-of-user",
+    "keyword": "Feature",
+    "uri": "ApiScenarios.feature",
+    "tags": [
+      {
+        "line": 1,
+        "name": "@authAPIValidation"
+      }
+    ]
+  }
+]

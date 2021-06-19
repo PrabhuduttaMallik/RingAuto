@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'info.cukes', name: 'cucumber-java', version: '1.2.2'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.0.0-alpha-7'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.141.59'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '3.141.59'
+    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.1.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.json', name: 'json', version: '20201115'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '5.1.0'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '5.1.0'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '0.0.23'
+    compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
+
+
+}
+wrapper {
+    gradleVersion = '4.4'
+    distributionUrl = distributionUrl.replace("bin", "all")
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+task UIAssignment() {
+
+    dependsOn assemble,compileTestJava,processTestResources
+    def manifestFile = file("commands.txt");
+    manifestFile.write(envType + "|" + testTags + "|" + browser)
+    def cucumberTags = []
+    if(testTags.contains('&')) {
+        def tags = testTag.split("&")
+        tags.each {tagId ->
+            cucumberTags.add('--tags')
+            cucumberTags.add(tagId)
+        }
+        cucumberTags.add('--tags')
+        cucumberTags.add('~@pending')
+    }else {
+        cucumberTags = ['--tags',testTags, '--tags','~@pending']
+    }
+    logger.quiet("Tag details are ----"+cucumberTags)
+    def cucumberArgs = ['--plugin', 'html:target/cucumber-html-report','--plugin', 'json:target/cucumber-html-reports/cucumber.json','--plugin','pretty','--plugin','junit:target/junit-reporter.xml', '--glue', 'com.test.uiautomation', 'src/test/resources/features', ]+cucumberTags
+    logger.quiet("Argument details-- "+cucumberArgs)
+
+    doLast {
+        javaexec {
+            jvmArgs = []
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = cucumberArgs
+            systemProperty "job.runtime", System.getProperty("job.runtime")
+        }
+    }
+}
+
+task APIAssignment() {
+
+    dependsOn assemble,compileTestJava,processTestResources
+    def manifestFile = file("apiCommands.txt");
+    manifestFile.write(envType + "|" + testTags )
+    def cucumberTags = []
+    if(testTags.contains('&')) {
+        def tags = testTag.split("&")
+        tags.each {tagId ->
+            cucumberTags.add('--tags')
+            cucumberTags.add(tagId)
+        }
+        cucumberTags.add('--tags')
+        cucumberTags.add('~@pending')
+    }else {
+        cucumberTags = ['--tags',testTags, '--tags','~@pending']
+    }
+    logger.quiet("Tag details are ----"+cucumberTags)
+    def cucumberArgs = ['--plugin', 'html:target/cucumber-html-report','--plugin', 'json:target/cucumber-html-reports/cucumber.json','--plugin','pretty','--plugin','junit:target/junit-reporter.xml', '--glue', 'com.test.uiautomation', 'src/test/resources/features', ]+cucumberTags
+    logger.quiet("Argument details-- "+cucumberArgs)
+
+    doLast {
+        javaexec {
+            jvmArgs = []
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = cucumberArgs
+            systemProperty "job.runtime", System.getProperty("job.runtime")
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+"stage":{
+  "url": "https://demo.realworld.io/#/"
+  },
+  "prod": {
+    "url": "https://demo.realworld.io/#/"
+  },
+  "qa": {
+    "url": "https://demo.realworld.io/#/",
+    "global_feed_text" : "Global Feed"
+  },
+  "qaAPI": {
+    "apiBaseUrl": "https://conduit.productionready.io/api",
+    "registerUserEP" : "/users",
+    "listAllArticles": "/articles",
+    "articleByUser" : "/articles?author=",
+    "articleByTag" : "/articles?tag=",
+    "getAllTheTags" : "/tags"
+  }
+}
