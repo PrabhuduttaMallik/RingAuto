@@ -1,0 +1,16 @@
+
+Using AWS configuration SettingUp instance of Application
+
+Service to Use - Elastic BeanStalk (EBS)
+
+1. Login to AWS Console
+2. Click on Getting Started to create the requirement
+3. Enter Application Name
+4. choose platform . (i have choosen Tomcat now)
+5. Create a war file of the application and upload to the platform --Platform can be tomcat, java version along with 64bit of amazon linux
+6. click on more on the configuration to configure the application
+7. If any additional configuration needed we can configure as per the need.
+8. Click on Create App
+
+
+We can also configure load balancer,security and monitoring services for our app also.
